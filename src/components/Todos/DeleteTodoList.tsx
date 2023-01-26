@@ -49,7 +49,6 @@ export default function DeleteTodoList({ id }: { id: TodoList['id'] }) {
               });
               // @ts-ignore
               if (data?.deleteTodoList || data?.deleteTodoList === null) {
-                console.log('here');
                 window.history.pushState(null, '', '/');
                 window.location.reload();
               }
@@ -103,7 +102,6 @@ export default function DeleteTodoList({ id }: { id: TodoList['id'] }) {
               });
               // @ts-ignore
               if (data?.deleteTodoList || data?.deleteTodoList === null) {
-                console.log('here');
                 window.history.pushState(null, '', '/');
                 window.location.reload();
               }
