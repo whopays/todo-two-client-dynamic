@@ -5,7 +5,7 @@ import ADD_TODO from '../../apollo/mutations/addTodo';
 import GET_TODOS from '../../apollo/queries/getTodos';
 import todoListContext from '../../context/todoListContext';
 import { TodoListResponse } from '../../types/Todo';
-import { insertNewElementId } from '../../config';
+import { insertNewElementId, temporaryNewId } from '../../config';
 import CircularProgress from '@mui/material/CircularProgress';
 
 export default function NewTodo() {
@@ -46,6 +46,14 @@ export default function NewTodo() {
             id: todoListId,
           },
         });
+      },
+      optimisticResponse: {
+        putTodo: {
+          id: temporaryNewId,
+          name: value,
+          checked: false,
+          __typename: 'Todo',
+        },
       },
     });
 

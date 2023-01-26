@@ -9,3 +9,5 @@ export const isDev =
 export const backendUrl = isDev
   ? 'http://localhost:4000/'
   : 'https://todo-two-server.onrender.com/';
+
+export const temporaryNewId = 'tempId';

@@ -10,7 +10,11 @@ import GET_TODOS from '../../apollo/queries/getTodos';
 import DELETE_TODO from '../../apollo/mutations/deleteTodo';
 import EDIT_TODO from '../../apollo/mutations/editTodo';
 import todoListContext from '../../context/todoListContext';
-import { deleteElementId, todoInputElementId } from '../../config';
+import {
+  deleteElementId,
+  temporaryNewId,
+  todoInputElementId,
+} from '../../config';
 import usePrevious from '../../hooks/usePrevious';
 
 export default function Todo({ name, checked, id }: ITodo) {
@@ -72,8 +76,11 @@ export default function Todo({ name, checked, id }: ITodo) {
         inputProps={{
           'data-cy': todoInputElementId,
           maxLength: 512,
-          style: { textDecoration: checked ? 'line-through' : 'initial' },
+          style: {
+            textDecoration: checked ? 'line-through' : 'initial',
+          },
         }}
+        disabled={id === temporaryNewId}
         fullWidth
         placeholder="✍️✍️✍️"
         variant="standard"
