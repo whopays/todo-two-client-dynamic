@@ -57,7 +57,7 @@ export default function NewTodo() {
       <TextField
         inputProps={{ 'data-cy': insertNewElementId }}
         fullWidth
-        placeholder="Insert new"
+        placeholder="✍️✍️✍️"
         variant="standard"
         onChange={(e) => {
           setValue(e.target.value);

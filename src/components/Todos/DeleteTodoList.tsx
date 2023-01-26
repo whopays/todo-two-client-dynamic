@@ -1,20 +1,25 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import Alert from '@mui/material/Alert';
 import CircularProgress from '@mui/material/CircularProgress';
-
+import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+
 import { TodoList } from '../../types/Todo';
 import DELETE_TODO_LIST from '../../apollo/mutations/deleteTodoList';
 import { useMutation } from '@apollo/client';
 import { confirmTodoListDeleteId, deleteTodoListId } from '../../config';
+import { IconButton } from '@mui/material';
+import todoListContext from '../../context/todoListContext';
 
 export default function DeleteTodoList({ id }: { id: TodoList['id'] }) {
   const [open, setOpen] = useState(false);
+  const { todoList } = useContext(todoListContext);
+  const countOfBins = Math.min(todoList?.todos?.length || 0, 14);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -60,14 +65,17 @@ export default function DeleteTodoList({ id }: { id: TodoList['id'] }) {
 
   return (
     <>
-      {!loading && (
-        <Button
-          variant="outlined"
-          onClick={handleClickOpen}
+      {!loading && countOfBins > 0 && (
+        <IconButton
+          aria-label="delete"
           data-cy={deleteTodoListId}
+          onClick={handleClickOpen}
+          disabled={loading}
         >
-          Delete this list forever
-        </Button>
+          {[...Array(countOfBins)].map((_e, i) => (
+            <DeleteForeverTwoToneIcon key={i} />
+          ))}
+        </IconButton>
       )}
       <Dialog
         open={open}

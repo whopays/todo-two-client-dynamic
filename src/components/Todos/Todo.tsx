@@ -75,7 +75,7 @@ export default function Todo({ name, checked, id }: ITodo) {
           style: { textDecoration: checked ? 'line-through' : 'initial' },
         }}
         fullWidth
-        placeholder="Insert here"
+        placeholder="✍️✍️✍️"
         variant="standard"
         onChange={(e) => {
           setInnerValue(e.target.value);
