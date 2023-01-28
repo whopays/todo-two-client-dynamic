@@ -80,7 +80,7 @@ export default function Todo({ name, checked, id }: ITodo) {
             textDecoration: checked ? 'line-through' : 'initial',
           },
         }}
-        disabled={id === temporaryNewId}
+        disabled={id === temporaryNewId || isDeleting || isEditing}
         fullWidth
         placeholder="✍️✍️✍️"
         variant="standard"
@@ -106,6 +106,7 @@ export default function Todo({ name, checked, id }: ITodo) {
                   });
                 }}
                 edge="start"
+                disabled={id === temporaryNewId || isDeleting || isEditing}
               >
                 {checked ? <VisibilityOff /> : <Visibility />}
               </IconButton>
@@ -129,7 +130,7 @@ export default function Todo({ name, checked, id }: ITodo) {
             deleteTodo();
           }
         }}
-        disabled={isDeleting}
+        disabled={id === temporaryNewId || isDeleting || isEditing}
       >
         {isDeleting || isEditing ? (
           <CircularProgress size={24} />

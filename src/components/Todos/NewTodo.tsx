@@ -85,6 +85,7 @@ export default function NewTodo() {
             </InputAdornment>
           ),
         }}
+        disabled={loading}
         error={!!error}
         helperText={
           error
