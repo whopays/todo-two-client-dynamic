@@ -8,7 +8,7 @@
     "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.10.16",
     "@mui/material": "^5.10.16",
-    "@mui/x-data-grid": "^5.17.14",
+    "@testing-library/dom": "^8.20.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
@@ -60,7 +60,7 @@
   },
   "devDependencies": {
     "@types/uuid": "^9.0.0",
-    "cypress": "^12.3.0",
+    "cypress": "^12.4.1",
     "prettier": "^2.8.0"
   }
 }
