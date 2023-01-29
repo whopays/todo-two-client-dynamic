@@ -6,14 +6,13 @@ import {
   confirmTodoListDeleteId,
 } from '../../src/config';
 
-// const rootUrl = 'http://localhost:3000/';
 const idRegexWithHash =
   /^\/[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const test1 = 'test todo';
 const test2 = 'test todo 2';
 const test2edited = ' edited';
 
-describe('Smoke test', () => {
+describe('Smoke', () => {
   it('passes', () => {
     cy.visit('/');
     const initialLocation = cy.location('pathname');

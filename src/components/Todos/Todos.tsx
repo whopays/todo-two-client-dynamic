@@ -33,7 +33,8 @@ export default function Todos() {
   ] = useMutation(POST_TODO_LIST);
 
   useEffect(() => {
-    if (todoListId) return;
+    if (todoListId !== '') return;
+
     if (!postTodoListLoading) {
       postTodoMutateFunction({
         update: (proxy, { data: { postTodoList } }) => {
