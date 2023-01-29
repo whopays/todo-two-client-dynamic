@@ -6,16 +6,16 @@ import {
   confirmTodoListDeleteId,
 } from '../../src/config';
 
-const rootUrl = 'http://localhost:3000/';
+// const rootUrl = 'http://localhost:3000/';
 const idRegexWithHash =
   /^\/[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const test1 = 'test todo';
 const test2 = 'test todo 2';
+const test2edited = ' edited';
 
 describe('Smoke test', () => {
   it('passes', () => {
-    cy.visit(rootUrl);
-
+    cy.visit('/');
     const initialLocation = cy.location('pathname');
     initialLocation.should('match', idRegexWithHash);
 
@@ -35,6 +35,14 @@ describe('Smoke test', () => {
     cy.reload();
     cy.dataCy(todoInputElementId).its('length').should('eq', 1);
     cy.dataCy(todoInputElementId).should('have.value', test2);
+
+    cy.reload();
+    cy.dataCy(todoInputElementId).type(`${test2edited}\n`);
+    cy.dataCy(todoInputElementId).should('be.disabled');
+    cy.dataCy(todoInputElementId).should('not.be.disabled');
+
+    cy.reload();
+    cy.dataCy(todoInputElementId).should('have.value', test2 + test2edited);
 
     cy.dataCy(deleteTodoListId).click();
     cy.dataCy(confirmTodoListDeleteId).click();
