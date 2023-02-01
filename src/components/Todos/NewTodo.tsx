@@ -49,7 +49,7 @@ export default function NewTodo() {
       },
       optimisticResponse: {
         putTodo: {
-          id: temporaryNewId,
+          id: temporaryNewId + Math.random(),
           name: value,
           checked: false,
           __typename: 'Todo',
@@ -78,14 +78,6 @@ export default function NewTodo() {
           }
         }}
         value={value}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              {loading ? <CircularProgress size={24} /> : null}
-            </InputAdornment>
-          ),
-        }}
-        disabled={loading}
         error={!!error}
         helperText={
           error

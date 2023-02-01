@@ -70,6 +70,9 @@ export default function Todo({ name, checked, id }: ITodo) {
     });
   };
 
+  const isUnavailable =
+    id.startsWith(temporaryNewId) || isDeleting || isEditing;
+
   return (
     <Box display="flex" width="100%">
       <TextField
@@ -80,7 +83,7 @@ export default function Todo({ name, checked, id }: ITodo) {
             textDecoration: checked ? 'line-through' : 'initial',
           },
         }}
-        disabled={id === temporaryNewId || isDeleting || isEditing}
+        disabled={isUnavailable}
         fullWidth
         placeholder="✍️✍️✍️"
         variant="standard"
@@ -106,7 +109,7 @@ export default function Todo({ name, checked, id }: ITodo) {
                   });
                 }}
                 edge="start"
-                disabled={id === temporaryNewId || isDeleting || isEditing}
+                disabled={isUnavailable}
               >
                 {checked ? <VisibilityOff /> : <Visibility />}
               </IconButton>
@@ -130,9 +133,9 @@ export default function Todo({ name, checked, id }: ITodo) {
             deleteTodo();
           }
         }}
-        disabled={id === temporaryNewId || isDeleting || isEditing}
+        disabled={isUnavailable}
       >
-        {isDeleting || isEditing ? (
+        {isUnavailable ? (
           <CircularProgress size={24} />
         ) : (
           <DeleteForeverTwoToneIcon />
