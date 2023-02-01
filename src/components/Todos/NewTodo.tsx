@@ -1,18 +1,17 @@
 import { useState, useContext } from 'react';
 import { useMutation } from '@apollo/client';
-import { InputAdornment, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import ADD_TODO from '../../apollo/mutations/addTodo';
 import GET_TODOS from '../../apollo/queries/getTodos';
 import todoListContext from '../../context/todoListContext';
 import { TodoListResponse } from '../../types/Todo';
 import { insertNewElementId, temporaryNewId } from '../../config';
-import CircularProgress from '@mui/material/CircularProgress';
 
 export default function NewTodo() {
   const [value, setValue] = useState('');
   const { todoListId } = useContext(todoListContext);
 
-  const [mutateFunction, { loading, error }] = useMutation(ADD_TODO);
+  const [mutateFunction, { error }] = useMutation(ADD_TODO);
 
   const submit = async () => {
     if (value === '') {
