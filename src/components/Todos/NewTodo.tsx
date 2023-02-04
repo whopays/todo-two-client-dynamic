@@ -62,7 +62,7 @@ export default function NewTodo() {
   return (
     <>
       <TextField
-        inputProps={{ 'data-cy': insertNewElementId }}
+        inputProps={{ 'data-cy': insertNewElementId, maxLength: 512 }}
         fullWidth
         placeholder="✍️✍️✍️"
         variant="standard"

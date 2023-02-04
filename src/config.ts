@@ -1,6 +1,7 @@
 export const insertNewElementId = 'insert-todo';
 export const deleteElementId = 'delete-todo';
 export const todoInputElementId = 'todo';
+export const todoListTitleId = 'edit-todo-list-title';
 export const deleteTodoListId = 'delete-todo-list';
 export const confirmTodoListDeleteId = 'confirm-todo-list-delete';
 

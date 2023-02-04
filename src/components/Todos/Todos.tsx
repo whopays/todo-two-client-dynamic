@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Alert, Box, Button, LinearProgress } from '@mui/material';
+import { Alert, Box, Button, LinearProgress, TextField } from '@mui/material';
 import { useMutation, useQuery } from '@apollo/client';
 import { default as TodoComponent } from './Todo';
 import TodoListContext from '../../context/todoListContext';
@@ -9,6 +9,7 @@ import { TodoList, Todo } from '../../types/Todo';
 import POST_TODO_LIST from '../../apollo/mutations/postTodoList';
 import DeleteTodoList from './DeleteTodoList';
 import events from '../../events';
+import { todoListTitleId } from 'src/config';
 
 export default function Todos() {
   const [todoList, setTodoList] = useState<TodoList>();
@@ -25,6 +26,7 @@ export default function Todos() {
 
   useEffect(() => {
     setTodoList(data?.todoList);
+    document.title = `${data?.todoList?.title} | Two do`;
   }, [setTodoList, data]);
 
   const [
@@ -122,20 +124,23 @@ export default function Todos() {
         <NewTodo />
         <Box
           sx={{
-            display: 'flex',
-            width: '100%',
-            alignItems: 'center',
-            justifyContent: 'center',
-            bgcolor: 'background.default',
-            color: 'text.primary',
-            borderRadius: 1,
-            pt: 3,
-            pl: 3,
-            pr: 3,
+            display: 'grid',
+            'grid-template-columns': '1fr 1fr',
+            'grid-gap': '1rem',
+            'margin-top': '3rem',
           }}
         >
+          <TextField
+            inputProps={{ 'data-cy': todoListTitleId, maxLength: 512 }}
+            fullWidth
+            placeholder="✍️ title"
+            variant="standard"
+            value={todoList?.title}
+          />
           <DeleteTodoList id={todoListId} />
         </Box>
+        {/* <Box sx={{ display: 'inline-flex', width: '50%' }}> */}
+        {/* </Box> */}
       </TodoListContext.Provider>
     </Box>
   );

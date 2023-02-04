@@ -19,7 +19,7 @@ import todoListContext from '../../context/todoListContext';
 export default function DeleteTodoList({ id }: { id: TodoList['id'] }) {
   const [open, setOpen] = useState(false);
   const { todoList } = useContext(todoListContext);
-  const countOfBins = Math.min(todoList?.todos?.length || 0, 14);
+  const countOfBins = Math.min(todoList?.todos?.length || 0, 5);
 
   const handleClickOpen = () => {
     setOpen(true);
