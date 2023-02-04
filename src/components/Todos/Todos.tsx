@@ -26,7 +26,9 @@ export default function Todos() {
 
   useEffect(() => {
     setTodoList(data?.todoList);
-    document.title = `${data?.todoList?.title} | Two do`;
+    if (data?.todoList?.title) {
+      document.title = `${data?.todoList?.title} | Two do`;
+    }
   }, [setTodoList, data]);
 
   const [
