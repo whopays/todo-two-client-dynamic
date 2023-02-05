@@ -57,7 +57,7 @@ export default function Todo({ name, checked, id }: ITodo) {
     });
   };
 
-  const submit = async () => {
+  const submit = () => {
     editFunction({
       variables: {
         todoListId: todoListId,
@@ -85,7 +85,7 @@ export default function Todo({ name, checked, id }: ITodo) {
         }}
         disabled={isUnavailable}
         fullWidth
-        placeholder="✍️✍️✍️"
+        placeholder="✏️✏️✏️"
         variant="standard"
         onChange={(e) => {
           setInnerValue(e.target.value);

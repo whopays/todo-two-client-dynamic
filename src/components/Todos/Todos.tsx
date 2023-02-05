@@ -10,6 +10,7 @@ import POST_TODO_LIST from '../../apollo/mutations/postTodoList';
 import DeleteTodoList from './DeleteTodoList';
 import events from '../../events';
 import { todoListTitleId } from 'src/config';
+import TodoListTitle from './TodoListTitle';
 
 export default function Todos() {
   const [todoList, setTodoList] = useState<TodoList>();
@@ -26,9 +27,6 @@ export default function Todos() {
 
   useEffect(() => {
     setTodoList(data?.todoList);
-    if (data?.todoList?.title) {
-      document.title = `${data?.todoList?.title} | Two do`;
-    }
   }, [setTodoList, data]);
 
   const [
@@ -127,22 +125,14 @@ export default function Todos() {
         <Box
           sx={{
             display: 'grid',
-            'grid-template-columns': '1fr 1fr',
-            'grid-gap': '1rem',
-            'margin-top': '3rem',
+            gridTemplateColumns: '1fr 1fr',
+            gridGap: '1rem',
+            marginTop: '3rem',
           }}
         >
-          <TextField
-            inputProps={{ 'data-cy': todoListTitleId, maxLength: 512 }}
-            fullWidth
-            placeholder="✍️ title"
-            variant="standard"
-            value={todoList?.title}
-          />
+          <TodoListTitle />
           <DeleteTodoList id={todoListId} />
         </Box>
-        {/* <Box sx={{ display: 'inline-flex', width: '50%' }}> */}
-        {/* </Box> */}
       </TodoListContext.Provider>
     </Box>
   );

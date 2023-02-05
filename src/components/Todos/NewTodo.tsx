@@ -13,7 +13,7 @@ export default function NewTodo() {
 
   const [mutateFunction, { error }] = useMutation(ADD_TODO);
 
-  const submit = async () => {
+  const submit = () => {
     if (value === '') {
       return;
     }
@@ -64,7 +64,7 @@ export default function NewTodo() {
       <TextField
         inputProps={{ 'data-cy': insertNewElementId, maxLength: 512 }}
         fullWidth
-        placeholder="✍️✍️✍️"
+        placeholder="✏️✏️✏️"
         variant="standard"
         onChange={(e) => {
           setValue(e.target.value);
