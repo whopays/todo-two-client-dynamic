@@ -1,4 +1,5 @@
 {
   "git.ignoreLimitWarning": true,
-  "cSpell.words": ["Todos"]
+  "cSpell.words": ["Todos"],
+  "prettier.configPath": "prettier.config.js"
 }

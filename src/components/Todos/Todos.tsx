@@ -117,19 +117,28 @@ export default function Todos() {
           setTodoList,
         }}
       >
+        <Box
+          sx={{
+            marginBottom: '3rem',
+          }}
+        >
+          <TodoListTitle />
+        </Box>
+
         {todoList?.todos?.map((todo: Todo) => {
           return <TodoComponent {...todo} key={todo.id} />;
         })}
         <NewTodo />
+
         <Box
           sx={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gridGap: '1rem',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
             marginTop: '3rem',
           }}
         >
-          <TodoListTitle />
           <DeleteTodoList id={todoListId} />
         </Box>
       </TodoListContext.Provider>

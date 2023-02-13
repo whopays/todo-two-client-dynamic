@@ -10,7 +10,7 @@ import { TodoList } from 'src/types/Todo';
 
 export default function TodoListTitle() {
   const { todoListId, todoList } = useContext(todoListContext);
-  const [innerValue, setInnerValue] = useState(todoList?.title);
+  const [innerValue, setInnerValue] = useState(todoList?.title || '');
   const previousTitle: TodoList['title'] = usePrevious<TodoList['title']>(
     todoList?.title || '',
   );
@@ -26,7 +26,7 @@ export default function TodoListTitle() {
 
   useEffect(() => {
     if (innerValue !== todoList?.title && previousTitle !== todoList?.title) {
-      setInnerValue(todoList?.title);
+      setInnerValue(todoList?.title || '');
     }
   }, [innerValue, todoList?.title, previousTitle]);
 
@@ -44,7 +44,7 @@ export default function TodoListTitle() {
     <TextField
       inputProps={{ 'data-cy': todoListTitleId, maxLength: 512 }}
       fullWidth
-      placeholder="✏️ title"
+      placeholder="✏️ Title"
       variant="standard"
       value={innerValue}
       onChange={(e) => {
