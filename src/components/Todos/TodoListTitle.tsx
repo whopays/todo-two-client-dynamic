@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import { TextField } from '@mui/material';
+import { CircularProgress, InputAdornment, TextField } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import EDIT_TODO_LIST_TITLE from 'src/apollo/mutations/editTodoListTitle';
 import GET_TODOS from 'src/apollo/queries/getTodos';
@@ -43,6 +43,7 @@ export default function TodoListTitle() {
   return (
     <TextField
       inputProps={{ 'data-cy': todoListTitleId, maxLength: 512 }}
+      disabled={isEditing}
       fullWidth
       placeholder="✏️ Title"
       variant="standard"
@@ -51,6 +52,19 @@ export default function TodoListTitle() {
         setInnerValue(e.target.value);
       }}
       onBlur={submit}
+      error={!!editingError}
+      helperText={
+        !!editingError
+          ? `Something went wrong, potentially in internet connection; full error: ${editingError}`
+          : undefined
+      }
+      InputProps={{
+        endAdornment: (
+          <InputAdornment position="end">
+            {!!isEditing && <CircularProgress size={24} />}
+          </InputAdornment>
+        ),
+      }}
     />
   );
 }
