@@ -16,7 +16,6 @@ describe('Events', () => {
 
     cy.url().then((url) => {
       const todoListId = url.split(Cypress.config().baseUrl || '')[1];
-      console.log(todoListId);
       cy.request('POST', backendUrl, {
         operationName: 'Mutation',
         variables: {
