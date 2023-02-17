@@ -2,7 +2,6 @@ import { CssBaseline, useMediaQuery, PaletteMode } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState, useMemo } from 'react';
 import colorModeContext from '../../context/colorModeContext';
-import ColorModeSwitcher from '../ColorModeSwitcher/ColorModeSwitcher';
 
 function Theme({ children }: { children: JSX.Element | undefined }) {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
@@ -34,7 +33,6 @@ function Theme({ children }: { children: JSX.Element | undefined }) {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         {children}
-        <ColorModeSwitcher />
       </ThemeProvider>
     </colorModeContext.Provider>
   );
