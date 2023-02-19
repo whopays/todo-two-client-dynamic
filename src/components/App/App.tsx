@@ -15,6 +15,8 @@ function App() {
             width: '20rem',
             margin: '0 auto',
             paddingTop: '1rem',
+            display: 'flex',
+            justifyContent: 'space-evenly',
           }}
         >
           <PreviousTodoLists />
