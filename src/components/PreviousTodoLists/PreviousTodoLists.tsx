@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useRef, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Grow from '@mui/material/Grow';
@@ -6,7 +6,6 @@ import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
-import Stack from '@mui/material/Stack';
 import HistoryIcon from '@mui/icons-material/History';
 
 export default function PreviousTodoLists() {
@@ -15,7 +14,16 @@ export default function PreviousTodoLists() {
     JSON.stringify([
       {
         id: 'ad60cc5c-b64d-4b40-803e-cff7710852ee',
+        title: '',
+      },
+      {
+        id: 'ad60cc5c-b64d-4b40-803e-cff7710852ee',
         title: 'Feb 20, 2023 (ad60cc5c)',
+      },
+      {
+        id: 'ad60cc5c-b64d-4b40-803e-cff7710852ee',
+        title:
+          'Feb 20, 2023 (ad60cc5c) 123123l,123l;,13l;1,23 ;l12,3l;1 2,3;l12,3;l1',
       },
     ]),
   );
@@ -24,8 +32,8 @@ export default function PreviousTodoLists() {
     localStorage.getItem('previousTodoLists') || '{}',
   );
 
-  const [open, setOpen] = React.useState(false);
-  const anchorRef = React.useRef(null);
+  const [open, setOpen] = useState(false);
+  const anchorRef = useRef(null);
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -51,18 +59,6 @@ export default function PreviousTodoLists() {
     }
   }
 
-  // return focus to the button when we transitioned from !open -> open
-  const prevOpen = React.useRef(open);
-  React.useEffect(() => {
-    // @ts-ignore
-    if (prevOpen.current === true && open === false) {
-      // @ts-ignore
-      anchorRef.current.focus();
-    }
-
-    prevOpen.current = open;
-  }, [open]);
-
   return (
     <>
       <IconButton
@@ -78,7 +74,6 @@ export default function PreviousTodoLists() {
       <Popper
         open={open}
         anchorEl={anchorRef.current}
-        role={undefined}
         placement="bottom-start"
         transition
         disablePortal
@@ -113,7 +108,7 @@ export default function PreviousTodoLists() {
                             window.location.reload();
                           }}
                         >
-                          {previousTodoList.title}
+                          {previousTodoList.title || '✏️ Empty'}
                         </MenuItem>
                       );
                     },
