@@ -19,7 +19,7 @@ function App() {
             justifyContent: 'space-evenly',
           }}
         >
-          <PreviousTodoLists />
+          {/* <PreviousTodoLists /> */}
           <ColorModeSwitcher />
         </Box>
       </>

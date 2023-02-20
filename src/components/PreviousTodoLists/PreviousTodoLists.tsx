@@ -1,85 +1,129 @@
-import { useState } from 'react';
-import Box from '@mui/material/Box';
+import * as React from 'react';
 import IconButton from '@mui/material/IconButton';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import InputLabel from '@mui/material/InputLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+import Grow from '@mui/material/Grow';
+import Paper from '@mui/material/Paper';
+import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import MenuList from '@mui/material/MenuList';
+import Stack from '@mui/material/Stack';
 import HistoryIcon from '@mui/icons-material/History';
 
 export default function PreviousTodoLists() {
-  const [open, setOpen] = useState(false);
-  const [age, setAge] = useState('');
+  localStorage.setItem(
+    'previousTodoLists',
+    JSON.stringify([
+      {
+        id: 'ad60cc5c-b64d-4b40-803e-cff7710852ee',
+        title: 'Feb 20, 2023 (ad60cc5c)',
+      },
+    ]),
+  );
 
-  const handleChange = (event: { target: { value: any } }) => {
-    setAge(event.target.value || '');
+  const previousTodoLists = JSON.parse(
+    localStorage.getItem('previousTodoLists') || '{}',
+  );
+
+  const [open, setOpen] = React.useState(false);
+  const anchorRef = React.useRef(null);
+
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleClickOpen = () => {
-    // setOpen(true);
-  };
+  // @ts-ignore
+  const handleClose = (event) => {
+    // @ts-ignore
+    if (anchorRef.current && anchorRef.current?.contains(event.target)) {
+      return;
+    }
 
-  const handleClose = (event?: any, reason?: string) => {
     setOpen(false);
   };
+
+  // @ts-ignore
+  function handleListKeyDown(event) {
+    if (event.key === 'Tab') {
+      event.preventDefault();
+      setOpen(false);
+    } else if (event.key === 'Escape') {
+      setOpen(false);
+    }
+  }
+
+  // return focus to the button when we transitioned from !open -> open
+  const prevOpen = React.useRef(open);
+  React.useEffect(() => {
+    // @ts-ignore
+    if (prevOpen.current === true && open === false) {
+      // @ts-ignore
+      anchorRef.current.focus();
+    }
+
+    prevOpen.current = open;
+  }, [open]);
 
   return (
     <>
       <IconButton
-        aria-label="previos todo lists"
-        onClick={handleClickOpen}
-        edge="start"
+        ref={anchorRef}
+        id="composition-button"
+        aria-controls={open ? 'composition-menu' : undefined}
+        aria-expanded={open ? 'true' : undefined}
+        aria-haspopup="true"
+        onClick={handleToggle}
       >
         <HistoryIcon />
       </IconButton>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Fill the form</DialogTitle>
-        <DialogContent>
-          <Box component="form" sx={{ display: 'flex', flexWrap: 'wrap' }}>
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel htmlFor="demo-dialog-native">Age</InputLabel>
-              <Select
-                native
-                value={age}
-                onChange={handleChange}
-                input={<OutlinedInput label="Age" id="demo-dialog-native" />}
-              >
-                <option aria-label="None" value="" />
-                <option value={10}>Ten</option>
-                <option value={20}>Twenty</option>
-                <option value={30}>Thirty</option>
-              </Select>
-            </FormControl>
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id="demo-dialog-select-label">Age</InputLabel>
-              <Select
-                labelId="demo-dialog-select-label"
-                id="demo-dialog-select"
-                value={age}
-                onChange={handleChange}
-                input={<OutlinedInput label="Age" />}
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Ok</Button>
-        </DialogActions>
-      </Dialog>
+      <Popper
+        open={open}
+        anchorEl={anchorRef.current}
+        role={undefined}
+        placement="bottom-start"
+        transition
+        disablePortal
+      >
+        {({ TransitionProps, placement }) => (
+          <Grow
+            {...TransitionProps}
+            style={{
+              transformOrigin:
+                placement === 'bottom-start' ? 'left top' : 'left bottom',
+            }}
+          >
+            <Paper>
+              <ClickAwayListener onClickAway={handleClose}>
+                <MenuList
+                  autoFocusItem={open}
+                  id="composition-menu"
+                  aria-labelledby="composition-button"
+                  onKeyDown={handleListKeyDown}
+                >
+                  {previousTodoLists.map(
+                    (previousTodoList: { id: any; title: string }) => {
+                      return (
+                        <MenuItem
+                          key={previousTodoList.id}
+                          onClick={() => {
+                            window.history.pushState(
+                              null,
+                              '',
+                              `/${previousTodoList.id}`,
+                            );
+                            window.location.reload();
+                          }}
+                        >
+                          {previousTodoList.title}
+                        </MenuItem>
+                      );
+                    },
+                  )}
+                </MenuList>
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
+        )}
+      </Popper>
     </>
   );
 }
