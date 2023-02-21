@@ -7,30 +7,10 @@ import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import HistoryIcon from '@mui/icons-material/History';
+import { getPreviousTodoLists } from './previousTodoList';
 
 export default function PreviousTodoLists() {
-  localStorage.setItem(
-    'previousTodoLists',
-    JSON.stringify([
-      {
-        id: 'ad60cc5c-b64d-4b40-803e-cff7710852ee',
-        title: '',
-      },
-      {
-        id: 'ad60cc5c-b64d-4b40-803e-cff7710852ee',
-        title: 'Feb 20, 2023 (ad60cc5c)',
-      },
-      {
-        id: 'ad60cc5c-b64d-4b40-803e-cff7710852ee',
-        title:
-          'Feb 20, 2023 (ad60cc5c) 123123l,123l;,13l;1,23 ;l12,3l;1 2,3;l12,3;l1',
-      },
-    ]),
-  );
-
-  const previousTodoLists = JSON.parse(
-    localStorage.getItem('previousTodoLists') || '{}',
-  );
+  const previousTodoLists = getPreviousTodoLists();
 
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
@@ -108,7 +88,7 @@ export default function PreviousTodoLists() {
                             window.location.reload();
                           }}
                         >
-                          {previousTodoList.title || '✏️ Empty'}
+                          {previousTodoList.title || '✏️ Missing title'}
                         </MenuItem>
                       );
                     },
