@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Theme from '../Theme/Theme';
 import Todos from '../Todos/Todos';
 import ColorModeSwitcher from '../ColorModeSwitcher/ColorModeSwitcher';
-// import PreviousTodoLists from '../PreviousTodoLists/PreviousTodoLists';
+import PreviousTodoLists from '../PreviousTodoLists/PreviousTodoLists';
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
             justifyContent: 'space-between',
           }}
         >
-          {/* <PreviousTodoLists /> */}
+          <PreviousTodoLists />
           <ColorModeSwitcher />
         </Box>
       </>

@@ -1,28 +1,35 @@
+import { TodoList } from 'src/types/Todo';
+
 const key = 'previousTodoLists';
 
-localStorage.setItem(
-  key,
-  JSON.stringify([
-    {
-      id: 'ad60cc5c-b64d-4b40-803e-cff7710852ee',
-      title: '',
-    },
-    {
-      id: 'ad60cc5c-b64d-4b40-803e-cff7710852ee',
-      title: 'Feb 20, 2023 (ad60cc5c)',
-    },
-    {
-      id: 'ad60cc5c-b64d-4b40-803e-cff7710852ee',
-      title:
-        'Feb 20, 2023 (ad60cc5c) 123123l,123l;,13l;1,23 ;l12,3l;1 2,3;l12,3;l1',
-    },
-  ]),
-);
+interface TodoListFromLocalStorage {
+  id: TodoList['id'];
+  title: TodoList['title'];
+}
 
-export const getPreviousTodoLists = () => {
-  return JSON.parse(localStorage.getItem('previousTodoLists') || '{}');
+export const getPreviousTodoLists = (): Array<TodoListFromLocalStorage> => {
+  return JSON.parse(localStorage.getItem(key) || '[]');
 };
 
-export const removeTodoList = () => {};
+export const removeTodoList = (todoListId: TodoList['id']) => {
+  const previousTodoLists = getPreviousTodoLists();
+  console.log(todoListId, previousTodoLists);
+  const previousWithoutCurrentTodoLists = previousTodoLists.filter(
+    ({ id }) => id !== todoListId,
+  );
+  localStorage.setItem(key, JSON.stringify(previousWithoutCurrentTodoLists));
+};
 
-export const addTodoList = () => {};
+export const addTodoList = (todoList: TodoList) => {
+  const previousTodoLists = getPreviousTodoLists();
+  const previousWithoutCurrentTodoLists = previousTodoLists.filter(
+    ({ id }) => id !== todoList.id,
+  );
+  localStorage.setItem(
+    key,
+    JSON.stringify([
+      ...previousWithoutCurrentTodoLists,
+      { id: todoList.id, title: todoList.title },
+    ]),
+  );
+};

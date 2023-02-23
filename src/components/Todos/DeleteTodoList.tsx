@@ -15,6 +15,7 @@ import { useMutation } from '@apollo/client';
 import { confirmTodoListDeleteId, deleteTodoListId } from '../../config';
 import { IconButton } from '@mui/material';
 import todoListContext from '../../context/todoListContext';
+import { removeTodoList } from '../PreviousTodoLists/previousTodoList';
 
 export default function DeleteTodoList({ id }: { id: TodoList['id'] }) {
   const [open, setOpen] = useState(false);
@@ -100,8 +101,13 @@ export default function DeleteTodoList({ id }: { id: TodoList['id'] }) {
                   todoListId: id,
                 },
               });
-              // @ts-ignore
+
               if (data?.deleteTodoList || data?.deleteTodoList === null) {
+                if (todoList) {
+                  console.log(todoList);
+                  removeTodoList(todoList.id);
+                }
+
                 window.history.pushState(null, '', '/');
                 window.location.reload();
               }

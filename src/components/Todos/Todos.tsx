@@ -10,6 +10,10 @@ import POST_TODO_LIST from '../../apollo/mutations/postTodoList';
 import DeleteTodoList from './DeleteTodoList';
 import events from '../../events';
 import TodoListTitle from './TodoListTitle';
+import {
+  addTodoList,
+  removeTodoList,
+} from '../PreviousTodoLists/previousTodoList';
 
 export default function Todos() {
   const [todoList, setTodoList] = useState<TodoList>();
@@ -25,6 +29,9 @@ export default function Todos() {
   });
 
   useEffect(() => {
+    if (data?.todoList) {
+      addTodoList(data?.todoList);
+    }
     setTodoList(data?.todoList);
   }, [setTodoList, data]);
 
@@ -84,6 +91,7 @@ export default function Todos() {
             color="inherit"
             size="small"
             onClick={() => {
+              removeTodoList(todoListId);
               window.history.pushState(null, '', '/');
               window.location.reload();
             }}
