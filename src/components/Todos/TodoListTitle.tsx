@@ -1,7 +1,6 @@
 import { useMutation } from '@apollo/client';
 import { CircularProgress, InputAdornment, TextField } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
 import EDIT_TODO_LIST_TITLE from 'src/apollo/mutations/editTodoListTitle';
 import GET_TODOS from 'src/apollo/queries/getTodos';
 import { todoListTitleId } from 'src/config';

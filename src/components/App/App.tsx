@@ -4,6 +4,7 @@ import Theme from '../Theme/Theme';
 import Todos from '../Todos/Todos';
 import ColorModeSwitcher from '../ColorModeSwitcher/ColorModeSwitcher';
 import PreviousTodoLists from '../PreviousTodoLists/PreviousTodoLists';
+import ShareTodoList from '../ShareTodoList/ShareTodoList';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           }}
         >
           <PreviousTodoLists />
+          <ShareTodoList />
           <ColorModeSwitcher />
         </Box>
       </>
