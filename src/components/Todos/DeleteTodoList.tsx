@@ -104,7 +104,6 @@ export default function DeleteTodoList({ id }: { id: TodoList['id'] }) {
 
               if (data?.deleteTodoList || data?.deleteTodoList === null) {
                 if (todoList) {
-                  console.log(todoList);
                   removeTodoList(todoList.id);
                 }
 

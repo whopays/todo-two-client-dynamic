@@ -42,6 +42,7 @@ export default function TodoListTitle() {
       <Helmet>
         <title>{title}</title>
         <meta property="og:title" content={title} />
+        <meta property="description" content={title} />
       </Helmet>
 
       <TextField

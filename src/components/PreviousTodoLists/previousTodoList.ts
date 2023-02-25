@@ -13,7 +13,6 @@ export const getPreviousTodoLists = (): Array<TodoListFromLocalStorage> => {
 
 export const removeTodoList = (todoListId: TodoList['id']) => {
   const previousTodoLists = getPreviousTodoLists();
-  console.log(todoListId, previousTodoLists);
   const previousWithoutCurrentTodoLists = previousTodoLists.filter(
     ({ id }) => id !== todoListId,
   );
