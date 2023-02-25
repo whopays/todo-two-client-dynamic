@@ -25,6 +25,12 @@ export default function TodoListTitle() {
     }
   }, [innerValue, todoList?.title, previousTitle]);
 
+  useEffect(() => {
+    if (todoList?.title) {
+      document.title = `${todoList?.title} | Two do`;
+    }
+  }, [todoList?.title]);
+
   const submit = () => {
     editFunction({
       variables: {
@@ -35,41 +41,31 @@ export default function TodoListTitle() {
     });
   };
 
-  const title = todoList?.title ? `${todoList?.title} | Two do` : 'Two do';
-
   return (
-    <>
-      <Helmet>
-        <title>{title}</title>
-        <meta property="og:title" content={title} />
-        <meta property="description" content={title} />
-      </Helmet>
-
-      <TextField
-        inputProps={{ 'data-cy': todoListTitleId, maxLength: 512 }}
-        disabled={isEditing}
-        fullWidth
-        placeholder="✏️ Title"
-        variant="standard"
-        value={innerValue}
-        onChange={(e) => {
-          setInnerValue(e.target.value);
-        }}
-        onBlur={submit}
-        error={!!editingError}
-        helperText={
-          !!editingError
-            ? `Something went wrong, potentially in internet connection; full error: ${editingError}`
-            : undefined
-        }
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              {!!isEditing && <CircularProgress size={24} />}
-            </InputAdornment>
-          ),
-        }}
-      />
-    </>
+    <TextField
+      inputProps={{ 'data-cy': todoListTitleId, maxLength: 512 }}
+      disabled={isEditing}
+      fullWidth
+      placeholder="✏️ Title"
+      variant="standard"
+      value={innerValue}
+      onChange={(e) => {
+        setInnerValue(e.target.value);
+      }}
+      onBlur={submit}
+      error={!!editingError}
+      helperText={
+        !!editingError
+          ? `Something went wrong, potentially in internet connection; full error: ${editingError}`
+          : undefined
+      }
+      InputProps={{
+        endAdornment: (
+          <InputAdornment position="end">
+            {!!isEditing && <CircularProgress size={24} />}
+          </InputAdornment>
+        ),
+      }}
+    />
   );
 }
