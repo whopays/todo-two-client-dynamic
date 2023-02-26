@@ -7,7 +7,7 @@ export default function ShareTodoList() {
     text: document.title,
     url: window.location.href,
   };
-
+  console.log(shareData);
   return (
     <>
       {!!navigator?.canShare?.(shareData) && (
