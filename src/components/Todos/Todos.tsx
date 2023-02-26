@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { Alert, Box, Button, LinearProgress } from '@mui/material';
 import { useMutation, useQuery } from '@apollo/client';
 import { default as TodoComponent } from './Todo';
-import TodoListContext from '../../context/todoListContext';
 import NewTodo from './NewTodo';
 import GET_TODOS from '../../apollo/queries/getTodos';
-import { TodoList, Todo } from '../../types/Todo';
+import { Todo } from '../../types/Todo';
 import POST_TODO_LIST from '../../apollo/mutations/postTodoList';
 import DeleteTodoList from './DeleteTodoList';
 import events from '../../events';
@@ -14,12 +13,11 @@ import {
   addTodoList,
   removeTodoList,
 } from '../PreviousTodoLists/previousTodoList';
+import todoListContext from 'src/context/todoListContext';
 
 export default function Todos() {
-  const [todoList, setTodoList] = useState<TodoList>();
-  const [todoListId, setTodoListId] = useState<string>(
-    window.location.pathname.split('/')[1],
-  );
+  const { todoList, setTodoList, todoListId, setTodoListId } =
+    useContext(todoListContext);
 
   const { loading, error, data } = useQuery(GET_TODOS, {
     variables: {
@@ -51,13 +49,19 @@ export default function Todos() {
         },
       });
     }
-  }, [todoListId, postTodoData, postTodoMutateFunction, postTodoListLoading]);
+  }, [
+    todoListId,
+    postTodoData,
+    postTodoMutateFunction,
+    postTodoListLoading,
+    setTodoListId,
+  ]);
 
   useEffect(() => {
     if (todoListId) {
       events(todoListId, setTodoList);
     }
-  }, [todoListId]);
+  }, [setTodoList, todoListId]);
 
   if (loading || postTodoListLoading) return <LinearProgress />;
   if (error || postTodoError)
@@ -91,7 +95,7 @@ export default function Todos() {
             color="inherit"
             size="small"
             onClick={() => {
-              removeTodoList(todoListId);
+              todoListId && removeTodoList(todoListId);
               window.history.pushState(null, '', '/');
               window.location.reload();
             }}
@@ -117,39 +121,30 @@ export default function Todos() {
         paddingTop: '1rem',
       }}
     >
-      <TodoListContext.Provider
-        value={{
-          todoListId,
-          setTodoListId,
-          todoList,
-          setTodoList,
+      <Box
+        sx={{
+          marginBottom: '3rem',
         }}
       >
-        <Box
-          sx={{
-            marginBottom: '3rem',
-          }}
-        >
-          <TodoListTitle />
-        </Box>
+        <TodoListTitle />
+      </Box>
 
-        {todoList?.todos?.map((todo: Todo) => {
-          return <TodoComponent {...todo} key={todo.id} />;
-        })}
-        <NewTodo />
+      {todoList?.todos?.map((todo: Todo) => {
+        return <TodoComponent {...todo} key={todo.id} />;
+      })}
+      <NewTodo />
 
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '100%',
-            marginTop: '3rem',
-          }}
-        >
-          <DeleteTodoList id={todoListId} />
-        </Box>
-      </TodoListContext.Provider>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
+          marginTop: '3rem',
+        }}
+      >
+        {todoListId && <DeleteTodoList id={todoListId} />}
+      </Box>
     </Box>
   );
 }
