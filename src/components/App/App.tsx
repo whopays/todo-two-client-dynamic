@@ -1,15 +1,30 @@
 import Box from '@mui/material/Box';
 
+import TodoListContext from '../../context/todoListContext';
 import Theme from '../Theme/Theme';
 import Todos from '../Todos/Todos';
 import ColorModeSwitcher from '../ColorModeSwitcher/ColorModeSwitcher';
 import PreviousTodoLists from '../PreviousTodoLists/PreviousTodoLists';
 import ShareTodoList from '../ShareTodoList/ShareTodoList';
+import { useState } from 'react';
+import { TodoList } from 'src/types/Todo';
 
 function App() {
+  const [todoList, setTodoList] = useState<TodoList>();
+  const [todoListId, setTodoListId] = useState<string>(
+    window.location.pathname.split('/')[1],
+  );
+
   return (
     <Theme>
-      <>
+      <TodoListContext.Provider
+        value={{
+          todoListId,
+          setTodoListId,
+          todoList,
+          setTodoList,
+        }}
+      >
         <Todos />
         <Box
           sx={{
@@ -24,7 +39,7 @@ function App() {
           <ShareTodoList />
           <ColorModeSwitcher />
         </Box>
-      </>
+      </TodoListContext.Provider>
     </Theme>
   );
 }

@@ -3,9 +3,12 @@ import { TodoList } from '../types/Todo';
 
 const todoListContext = createContext<{
   todoListId?: string;
-  setTodoListId?: Dispatch<SetStateAction<string>>;
+  setTodoListId: Dispatch<SetStateAction<string>>;
   todoList?: TodoList;
-  setTodoList?: Dispatch<SetStateAction<TodoList | undefined>>;
-}>({});
+  setTodoList: Dispatch<SetStateAction<TodoList | undefined>>;
+}>({
+  setTodoListId() {},
+  setTodoList() {},
+});
 
 export default todoListContext;
