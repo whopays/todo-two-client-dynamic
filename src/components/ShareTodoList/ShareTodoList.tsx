@@ -5,9 +5,10 @@ import todoListContext from 'src/context/todoListContext';
 
 export default function ShareTodoList() {
   const { todoList } = useContext(todoListContext);
+  const title = todoList?.title || 'Two do';
   const shareData = {
-    title: todoList?.title || 'Two do',
-    text: todoList?.title || 'Two do',
+    title,
+    text: title,
     url: window.location.href,
   };
 
