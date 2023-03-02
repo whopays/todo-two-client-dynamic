@@ -14,6 +14,7 @@ import {
   removeTodoList,
 } from '../PreviousTodoLists/previousTodoList';
 import todoListContext from 'src/context/todoListContext';
+import Draggable from '../Draggable';
 
 export default function Todos() {
   const { todoList, setTodoList, todoListId, setTodoListId } =
@@ -129,9 +130,17 @@ export default function Todos() {
         <TodoListTitle />
       </Box>
 
-      {todoList?.todos?.map((todo: Todo) => {
-        return <TodoComponent {...todo} key={todo.id} />;
-      })}
+      <Draggable
+        items={
+          todoList?.todos?.map((todo: Todo) => {
+            return {
+              component: <TodoComponent {...todo} key={todo.id} />,
+              id: todo.id,
+            };
+          }) || []
+        }
+      />
+
       <NewTodo />
 
       <Box
