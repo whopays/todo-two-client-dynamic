@@ -3,9 +3,10 @@ import { useContext } from 'react';
 import {
   DragDropContext,
   Droppable,
-  Draggable,
+  Draggable as BeautifulDraggable,
   OnDragEndResponder,
 } from 'react-beautiful-dnd';
+import { grey } from '@mui/material/colors';
 import CHANGE_TODO_POSITION from 'src/apollo/mutations/changeTodoPosition';
 import todoListContext from 'src/context/todoListContext';
 import { Todo } from 'src/types/Todo';
@@ -13,15 +14,15 @@ import { Todo } from 'src/types/Todo';
 const getItemStyle = (draggableStyle: any, isDragging: boolean): {} => ({
   // styles we need to apply on draggables
   ...draggableStyle,
-  background: isDragging ? 'darkgray' : 'initial',
+  background: isDragging ? grey[700] : 'initial',
 });
 
 const getListStyle = (isDraggingOver: boolean): {} => ({
-  background: isDraggingOver ? '#36454F' : 'initial',
+  background: isDraggingOver ? grey[900] : 'initial',
   width: '100%',
 });
 
-const DraggableComponent = ({
+const Draggable = ({
   items,
 }: {
   items: Array<{ component: JSX.Element; id: Todo['id'] }>;
@@ -29,9 +30,17 @@ const DraggableComponent = ({
   const [mutateFunction, { error }] = useMutation(CHANGE_TODO_POSITION);
   const { todoListId } = useContext(todoListContext);
 
-  const onDragEnd: OnDragEndResponder = ({ draggableId, destination }) => {
+  const onDragEnd: OnDragEndResponder = ({
+    draggableId,
+    destination,
+    source,
+  }) => {
     // dropped outside the list
     if (!destination) {
+      return;
+    }
+
+    if (source.index === destination.index) {
       return;
     }
 
@@ -57,7 +66,11 @@ const DraggableComponent = ({
               style={getListStyle(snapshot.isDraggingOver)}
             >
               {items?.map((item, index) => (
-                <Draggable key={item.id} draggableId={item.id} index={index}>
+                <BeautifulDraggable
+                  key={item.id}
+                  draggableId={item.id}
+                  index={index}
+                >
                   {(provided, snapshot) => (
                     <div
                       ref={provided.innerRef}
@@ -71,7 +84,7 @@ const DraggableComponent = ({
                       {item.component}
                     </div>
                   )}
-                </Draggable>
+                </BeautifulDraggable>
               ))}
               {provided.placeholder}
             </div>
@@ -82,4 +95,4 @@ const DraggableComponent = ({
     </>
   );
 };
-export default DraggableComponent;
+export default Draggable;
