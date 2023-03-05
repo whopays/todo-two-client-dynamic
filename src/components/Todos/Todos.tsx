@@ -6,7 +6,6 @@ import NewTodo from './NewTodo';
 import GET_TODOS from '../../apollo/queries/getTodos';
 import { Todo } from '../../types/Todo';
 import POST_TODO_LIST from '../../apollo/mutations/postTodoList';
-import DeleteTodoList from './DeleteTodoList';
 import events from '../../events';
 import TodoListTitle from './TodoListTitle';
 import {

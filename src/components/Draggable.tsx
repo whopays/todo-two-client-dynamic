@@ -6,21 +6,37 @@ import {
   Draggable as BeautifulDraggable,
   OnDragEndResponder,
 } from 'react-beautiful-dnd';
-import { grey } from '@mui/material/colors';
+// import { primary } from '@mui/material/colors';
+import { useTheme } from '@mui/material/styles';
+
 import CHANGE_TODO_POSITION from 'src/apollo/mutations/changeTodoPosition';
 import todoListContext from 'src/context/todoListContext';
 import { Todo, TodoListResponse } from 'src/types/Todo';
 import GET_TODOS from 'src/apollo/queries/getTodos';
 import { Alert } from '@mui/material';
 
-const getItemStyle = (draggableStyle: any, isDragging: boolean): {} => ({
+const getItemStyle = ({
+  draggableStyle,
+  isDragging,
+  opacity,
+}: {
+  draggableStyle: any;
+  isDragging: boolean;
+  opacity: number;
+}) => ({
   // styles we need to apply on draggables
   ...draggableStyle,
-  background: isDragging ? grey[700] : 'initial',
+  opacity: isDragging ? 1 - opacity : 'initial',
 });
 
-const getListStyle = (isDraggingOver: boolean): {} => ({
-  background: isDraggingOver ? grey[900] : 'initial',
+const getListStyle = ({
+  isDraggingOver,
+  opacity,
+}: {
+  isDraggingOver: boolean;
+  opacity: number;
+}): {} => ({
+  opacity: isDraggingOver ? 1 - opacity : 'initial',
   width: '100%',
 });
 
@@ -41,6 +57,8 @@ const Draggable = ({
 }: {
   items: Array<{ component: JSX.Element; id: Todo['id'] }>;
 }) => {
+  const { palette } = useTheme();
+  console.log(palette);
   const [mutateFunction, { error }] = useMutation(CHANGE_TODO_POSITION);
   const { todoListId, todoList, setTodoList } = useContext(todoListContext);
 
@@ -122,7 +140,10 @@ const Draggable = ({
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
-              style={getListStyle(snapshot.isDraggingOver)}
+              style={getListStyle({
+                isDraggingOver: snapshot.isDraggingOver,
+                opacity: palette.action.selectedOpacity,
+              })}
             >
               {items?.map((item, index) => (
                 <BeautifulDraggable
@@ -135,10 +156,11 @@ const Draggable = ({
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
-                      style={getItemStyle(
-                        provided.draggableProps.style,
-                        snapshot.isDragging,
-                      )}
+                      style={getItemStyle({
+                        draggableStyle: provided.draggableProps.style,
+                        isDragging: snapshot.isDragging,
+                        opacity: palette.action.hoverOpacity,
+                      })}
                     >
                       {item.component}
                     </div>
