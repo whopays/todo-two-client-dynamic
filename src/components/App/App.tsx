@@ -8,6 +8,7 @@ import PreviousTodoLists from '../PreviousTodoLists/PreviousTodoLists';
 import ShareTodoList from '../ShareTodoList/ShareTodoList';
 import { useState } from 'react';
 import { TodoList } from 'src/types/Todo';
+import DeleteTodoList from '../Todos/DeleteTodoList';
 
 function App() {
   const [todoList, setTodoList] = useState<TodoList>();
@@ -30,13 +31,14 @@ function App() {
           sx={{
             width: '20rem',
             margin: '0 auto',
-            paddingTop: '1rem',
+            paddingTop: '3rem',
             display: 'flex',
             justifyContent: 'space-between',
           }}
         >
           <PreviousTodoLists />
           <ShareTodoList />
+          {todoListId && <DeleteTodoList id={todoListId} />}
           <ColorModeSwitcher />
         </Box>
       </TodoListContext.Provider>

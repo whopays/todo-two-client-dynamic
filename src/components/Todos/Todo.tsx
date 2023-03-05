@@ -5,6 +5,7 @@ import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import CircularProgress from '@mui/material/CircularProgress';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import HeightIcon from '@mui/icons-material/Height';
 import { Todo as ITodo } from '../../types/Todo';
 import GET_TODOS from '../../apollo/queries/getTodos';
 import DELETE_TODO from '../../apollo/mutations/deleteTodo';
@@ -114,6 +115,11 @@ export default function Todo({ name, checked, id }: ITodo) {
                 {checked ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
               </IconButton>
             </InputAdornment>
+          ),
+          endAdornment: (
+            <IconButton>
+              <HeightIcon />
+            </IconButton>
           ),
         }}
         error={!!editingError || !!deletingError}

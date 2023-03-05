@@ -142,18 +142,6 @@ export default function Todos() {
       />
 
       <NewTodo />
-
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '100%',
-          marginTop: '3rem',
-        }}
-      >
-        {todoListId && <DeleteTodoList id={todoListId} />}
-      </Box>
     </Box>
   );
 }

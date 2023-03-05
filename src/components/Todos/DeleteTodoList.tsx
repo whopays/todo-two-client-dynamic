@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import Alert from '@mui/material/Alert';
 import CircularProgress from '@mui/material/CircularProgress';
-import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
@@ -20,7 +20,6 @@ import { removeTodoList } from '../PreviousTodoLists/previousTodoList';
 export default function DeleteTodoList({ id }: { id: TodoList['id'] }) {
   const [open, setOpen] = useState(false);
   const { todoList } = useContext(todoListContext);
-  const countOfBins = Math.min(todoList?.todos?.length || 0, 5);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -65,16 +64,14 @@ export default function DeleteTodoList({ id }: { id: TodoList['id'] }) {
 
   return (
     <>
-      {!loading && countOfBins > 0 && (
+      {!loading && todoList?.todos?.length && todoList?.todos?.length > 0 && (
         <IconButton
           aria-label="delete"
           data-cy={deleteTodoListId}
           onClick={handleClickOpen}
           disabled={loading}
         >
-          {[...Array(countOfBins)].map((_e, i) => (
-            <DeleteForeverTwoToneIcon key={i} />
-          ))}
+          <DeleteForeverIcon />
         </IconButton>
       )}
       <Dialog
