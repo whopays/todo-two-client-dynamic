@@ -3,8 +3,8 @@ import { Box, TextField, IconButton, InputAdornment } from '@mui/material';
 import { useMutation } from '@apollo/client';
 import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import CircularProgress from '@mui/material/CircularProgress';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { Todo as ITodo } from '../../types/Todo';
 import GET_TODOS from '../../apollo/queries/getTodos';
 import DELETE_TODO from '../../apollo/mutations/deleteTodo';
@@ -111,7 +111,7 @@ export default function Todo({ name, checked, id }: ITodo) {
                 edge="start"
                 disabled={isUnavailable}
               >
-                {checked ? <VisibilityOff /> : <Visibility />}
+                {checked ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
               </IconButton>
             </InputAdornment>
           ),
