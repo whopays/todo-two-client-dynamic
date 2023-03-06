@@ -19,7 +19,10 @@ import UndoDeleteTodo from './UndoDeleteTodo';
 export default function Todos() {
   const { todoList, setTodoList, todoListId, setTodoListId } =
     useContext(todoListContext);
-  const [undoDeletedText, setUndoDeletedText] = useState('');
+  const [deletedTextPack, setDeletedTextPack] = useState<Array<string>>([]);
+  const addTextToDeletedPack = (text: string) =>
+    setDeletedTextPack([...deletedTextPack, text]);
+
   const { loading, error, data } = useQuery(GET_TODOS, {
     variables: {
       id: todoListId,
@@ -138,7 +141,7 @@ export default function Todos() {
                 <TodoComponent
                   {...todo}
                   key={todo.id}
-                  setUndoDeletedText={setUndoDeletedText}
+                  addTextToDeletedPack={addTextToDeletedPack}
                 />
               ),
               id: todo.id,
@@ -148,8 +151,8 @@ export default function Todos() {
       />
 
       <UndoDeleteTodo
-        undoDeletedText={undoDeletedText}
-        setUndoDeletedText={setUndoDeletedText}
+        deletedTextPack={deletedTextPack}
+        setDeletedTextPack={setDeletedTextPack}
       />
       <NewTodo />
     </Box>

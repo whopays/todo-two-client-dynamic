@@ -1,10 +1,4 @@
-import {
-  useState,
-  useContext,
-  useEffect,
-  Dispatch,
-  SetStateAction,
-} from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Box, TextField, IconButton, InputAdornment } from '@mui/material';
 import { useMutation } from '@apollo/client';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
@@ -23,8 +17,8 @@ export default function Todo({
   name,
   checked,
   id,
-  setUndoDeletedText,
-}: ITodo & { setUndoDeletedText: Dispatch<SetStateAction<string>> }) {
+  addTextToDeletedPack,
+}: ITodo & { addTextToDeletedPack: (text: string) => void }) {
   const [innerValue, setInnerValue] = useState(name);
   const { todoListId } = useContext(todoListContext);
   const previousName: ITodo['name'] = usePrevious<ITodo['name']>(name);
@@ -42,7 +36,7 @@ export default function Todo({
     useMutation(EDIT_TODO);
 
   const deleteTodo = () => {
-    setUndoDeletedText(innerValue);
+    addTextToDeletedPack(innerValue);
 
     deleteFunction({
       variables: {
