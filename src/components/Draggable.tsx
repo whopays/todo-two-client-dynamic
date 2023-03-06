@@ -6,7 +6,6 @@ import {
   Draggable as BeautifulDraggable,
   OnDragEndResponder,
 } from 'react-beautiful-dnd';
-// import { primary } from '@mui/material/colors';
 import { useTheme } from '@mui/material/styles';
 
 import CHANGE_TODO_POSITION from 'src/apollo/mutations/changeTodoPosition';
@@ -58,7 +57,6 @@ const Draggable = ({
   items: Array<{ component: JSX.Element; id: Todo['id'] }>;
 }) => {
   const { palette } = useTheme();
-  console.log(palette);
   const [mutateFunction, { error }] = useMutation(CHANGE_TODO_POSITION);
   const { todoListId, todoList, setTodoList } = useContext(todoListContext);
 

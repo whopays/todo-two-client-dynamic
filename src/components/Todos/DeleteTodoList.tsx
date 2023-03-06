@@ -64,7 +64,7 @@ export default function DeleteTodoList({ id }: { id: TodoList['id'] }) {
 
   return (
     <>
-      {!loading && todoList?.todos?.length && todoList?.todos?.length > 0 && (
+      {!loading && !!todoList?.todos?.length && todoList?.todos?.length > 0 && (
         <IconButton
           aria-label="delete"
           data-cy={deleteTodoListId}

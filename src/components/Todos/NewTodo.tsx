@@ -2,10 +2,9 @@ import { useState, useContext } from 'react';
 import { useMutation } from '@apollo/client';
 import { TextField } from '@mui/material';
 import ADD_TODO from '../../apollo/mutations/addTodo';
-import GET_TODOS from '../../apollo/queries/getTodos';
 import todoListContext from '../../context/todoListContext';
-import { TodoListResponse } from '../../types/Todo';
-import { insertNewElementId, temporaryNewId } from '../../config';
+import { insertNewElementId } from '../../config';
+import addNewTodo from 'src/apollo/actions/addNewTodo';
 
 export default function NewTodo() {
   const [value, setValue] = useState('');
@@ -18,43 +17,7 @@ export default function NewTodo() {
       return;
     }
 
-    mutateFunction({
-      variables: {
-        todoListId: todoListId,
-        name: value,
-      },
-      update: (proxy, { data: { putTodo } }) => {
-        const data: TodoListResponse | null = proxy.readQuery({
-          query: GET_TODOS,
-          variables: {
-            id: todoListId,
-          },
-        });
-
-        if (!data) return;
-
-        proxy.writeQuery({
-          query: GET_TODOS,
-          data: {
-            todoList: {
-              ...data.todoList,
-              todos: [...data.todoList.todos, putTodo],
-            },
-          },
-          variables: {
-            id: todoListId,
-          },
-        });
-      },
-      optimisticResponse: {
-        putTodo: {
-          id: temporaryNewId + Math.random(),
-          name: value,
-          checked: false,
-          __typename: 'Todo',
-        },
-      },
-    });
+    addNewTodo({ mutateFunction, todoListId, value });
 
     setValue('');
   };

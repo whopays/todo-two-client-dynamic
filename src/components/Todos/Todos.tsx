@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Alert, Box, Button, LinearProgress } from '@mui/material';
 import { useMutation, useQuery } from '@apollo/client';
 import { default as TodoComponent } from './Todo';
@@ -14,11 +14,12 @@ import {
 } from '../PreviousTodoLists/previousTodoList';
 import todoListContext from 'src/context/todoListContext';
 import Draggable from '../Draggable';
+import UndoDeleteTodo from './UndoDeleteTodo';
 
 export default function Todos() {
   const { todoList, setTodoList, todoListId, setTodoListId } =
     useContext(todoListContext);
-
+  const [undoDeletedText, setUndoDeletedText] = useState('');
   const { loading, error, data } = useQuery(GET_TODOS, {
     variables: {
       id: todoListId,
@@ -133,13 +134,23 @@ export default function Todos() {
         items={
           todoList?.todos?.map((todo: Todo) => {
             return {
-              component: <TodoComponent {...todo} key={todo.id} />,
+              component: (
+                <TodoComponent
+                  {...todo}
+                  key={todo.id}
+                  setUndoDeletedText={setUndoDeletedText}
+                />
+              ),
               id: todo.id,
             };
           }) || []
         }
       />
 
+      <UndoDeleteTodo
+        undoDeletedText={undoDeletedText}
+        setUndoDeletedText={setUndoDeletedText}
+      />
       <NewTodo />
     </Box>
   );

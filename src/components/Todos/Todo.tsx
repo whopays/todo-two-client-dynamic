@@ -1,8 +1,12 @@
-import { useState, useContext, useEffect } from 'react';
+import {
+  useState,
+  useContext,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+} from 'react';
 import { Box, TextField, IconButton, InputAdornment } from '@mui/material';
 import { useMutation } from '@apollo/client';
-import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
-import CircularProgress from '@mui/material/CircularProgress';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import HeightIcon from '@mui/icons-material/Height';
@@ -11,14 +15,16 @@ import GET_TODOS from '../../apollo/queries/getTodos';
 import DELETE_TODO from '../../apollo/mutations/deleteTodo';
 import EDIT_TODO from '../../apollo/mutations/editTodo';
 import todoListContext from '../../context/todoListContext';
-import {
-  deleteElementId,
-  temporaryNewId,
-  todoInputElementId,
-} from '../../config';
+import { temporaryNewId, todoInputElementId } from '../../config';
 import usePrevious from '../../hooks/usePrevious';
+import DeleteTodo from './DeleteTodo';
 
-export default function Todo({ name, checked, id }: ITodo) {
+export default function Todo({
+  name,
+  checked,
+  id,
+  setUndoDeletedText,
+}: ITodo & { setUndoDeletedText: Dispatch<SetStateAction<string>> }) {
   const [innerValue, setInnerValue] = useState(name);
   const { todoListId } = useContext(todoListContext);
   const previousName: ITodo['name'] = usePrevious<ITodo['name']>(name);
@@ -35,7 +41,9 @@ export default function Todo({ name, checked, id }: ITodo) {
   const [editFunction, { loading: isEditing, error: editingError }] =
     useMutation(EDIT_TODO);
 
-  const deleteTodo = async () => {
+  const deleteTodo = () => {
+    setUndoDeletedText(innerValue);
+
     deleteFunction({
       variables: {
         todoListId: todoListId,
@@ -131,22 +139,7 @@ export default function Todo({ name, checked, id }: ITodo) {
             : undefined
         }
       />
-      <IconButton
-        aria-label="delete"
-        data-cy={deleteElementId}
-        onClick={async () => {
-          if (!(isDeleting || isEditing)) {
-            deleteTodo();
-          }
-        }}
-        disabled={isUnavailable}
-      >
-        {isUnavailable ? (
-          <CircularProgress size={24} />
-        ) : (
-          <DeleteForeverTwoToneIcon />
-        )}
-      </IconButton>
+      <DeleteTodo isUnavailable={isUnavailable} deleteTodo={deleteTodo} />
     </Box>
   );
 }
