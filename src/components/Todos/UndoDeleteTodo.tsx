@@ -53,7 +53,7 @@ export default function UndoDeleteTodo({
           addNewTodo({ mutateFunction, todoListId, value: text || '' });
         }}
       >
-        Undo
+        Restore
       </Button>
       <IconButton
         size="small"
@@ -69,7 +69,6 @@ export default function UndoDeleteTodo({
   return (
     <>
       <Snackbar
-        key={text}
         open={open}
         onClose={handleClose}
         autoHideDuration={6000}
