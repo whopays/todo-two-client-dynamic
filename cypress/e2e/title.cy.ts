@@ -12,14 +12,21 @@ describe('Title', () => {
 
     const newLocation = cy.location('pathname');
     newLocation.then((location) => {
+      const formatDate = new Date().toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      });
+
       cy.dataCy(todoListTitleId).should(
         'have.value',
-        location.split('/')[1].split('-')[0],
+        `${formatDate} (${location.split('/')[1].split('-')[0]})`,
       );
+
       cy.dataCy(todoListTitleId).type(`${titleEdited}\n`);
       cy.dataCy(todoListTitleId).should(
         'have.value',
-        `${location.split('/')[1].split('-')[0]}${titleEdited}`,
+        `${formatDate} (${location.split('/')[1].split('-')[0]})${titleEdited}`,
       );
     });
   });

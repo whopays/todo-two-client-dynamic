@@ -11,6 +11,11 @@ import Typography from '@mui/material/Typography';
 import HistoryIcon from '@mui/icons-material/History';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { getPreviousTodoLists, removeTodoList } from './previousTodoList';
+import {
+  previousTodoListDeleteItemId,
+  previousTodoListDropdownItemId,
+  previousTodoListsId,
+} from 'src/config';
 
 export default function PreviousTodoLists() {
   const [previousTodoLists, setPreviousTodoLists] = useState(
@@ -41,6 +46,8 @@ export default function PreviousTodoLists() {
     }
   }
 
+  if (previousTodoLists.length === 0) return null;
+
   return (
     <>
       <IconButton
@@ -50,6 +57,7 @@ export default function PreviousTodoLists() {
         aria-expanded={open ? 'true' : undefined}
         aria-haspopup="true"
         onClick={handleToggle}
+        data-cy={previousTodoListsId}
       >
         <HistoryIcon />
       </IconButton>
@@ -86,6 +94,7 @@ export default function PreviousTodoLists() {
                               window.history.pushState(null, '', `/${id}`);
                               window.location.reload();
                             }}
+                            data-cy={previousTodoListDropdownItemId}
                           >
                             <Box
                               display="flex"
@@ -101,6 +110,7 @@ export default function PreviousTodoLists() {
                               </Typography>
                               <IconButton
                                 aria-label="delete previous list entry"
+                                data-cy={previousTodoListDeleteItemId}
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   removeTodoList(id);

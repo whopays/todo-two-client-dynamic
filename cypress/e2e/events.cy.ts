@@ -9,10 +9,11 @@ const backendUrl = 'http://localhost:4000/';
 describe('Events', () => {
   it('new submitted comment appears at the bottom of the list', () => {
     cy.visit('http://localhost:3000/');
-    cy.dataCy(insertNewElementId).should('exist');
 
     const initialLocation = cy.location('pathname');
     initialLocation.should('match', idRegexWithHash);
+
+    cy.dataCy(insertNewElementId).should('exist');
 
     cy.url().then((url) => {
       const todoListId = url.split(Cypress.config().baseUrl || '')[1];

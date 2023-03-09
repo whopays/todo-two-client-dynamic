@@ -4,6 +4,10 @@ export const todoInputElementId = 'todo';
 export const todoListTitleId = 'edit-todo-list-title';
 export const deleteTodoListId = 'delete-todo-list';
 export const confirmTodoListDeleteId = 'confirm-todo-list-delete';
+export const previousTodoListsId = 'previous-todo-list';
+export const previousTodoListDropdownItemId =
+  'previous-todo-list-dropdown-item';
+export const previousTodoListDeleteItemId = 'previous-todo-list-delete-item';
 
 export const isDev =
   !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
