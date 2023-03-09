@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { KeyboardEvent, useRef, useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Box from '@mui/material/Box';
@@ -18,24 +18,21 @@ export default function PreviousTodoLists() {
   );
 
   const [open, setOpen] = useState(false);
-  const anchorRef = useRef(null);
+  const anchorRef = useRef<HTMLButtonElement>(null);
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
 
-  // @ts-ignore
-  const handleClose = (event) => {
-    // @ts-ignore
-    if (anchorRef.current && anchorRef.current?.contains(event.target)) {
+  const handleClose = ({ target }: MouseEvent | TouchEvent) => {
+    if (anchorRef?.current?.contains(target as Node)) {
       return;
     }
 
     setOpen(false);
   };
 
-  // @ts-ignore
-  function handleListKeyDown(event) {
+  function handleListKeyDown(event: KeyboardEvent) {
     if (event.key === 'Tab') {
       event.preventDefault();
       setOpen(false);
