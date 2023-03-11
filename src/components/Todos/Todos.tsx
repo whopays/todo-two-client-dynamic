@@ -125,6 +125,12 @@ export default function Todos() {
         paddingTop: '1rem',
       }}
     >
+      {todoList?.deleted && (
+        <Alert severity="error">
+          This twodoit was deleted. This operation can't be undone. The data you
+          see is stored only locally. It's your last chance to see it.
+        </Alert>
+      )}
       <Box
         sx={{
           marginBottom: '3rem',

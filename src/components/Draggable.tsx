@@ -65,6 +65,8 @@ const Draggable = ({
     destination,
     source,
   }) => {
+    if (!!todoList?.deleted) return;
+
     // dropped outside the list
     if (!destination) {
       return;

@@ -8,7 +8,7 @@ import addNewTodo from 'src/apollo/actions/addNewTodo';
 
 export default function NewTodo() {
   const [value, setValue] = useState('');
-  const { todoListId } = useContext(todoListContext);
+  const { todoListId, todoList } = useContext(todoListContext);
 
   const [mutateFunction, { error }] = useMutation(ADD_TODO);
 
@@ -25,6 +25,7 @@ export default function NewTodo() {
   return (
     <>
       <TextField
+        disabled={!!todoList?.deleted}
         inputProps={{ 'data-cy': insertNewElementId, maxLength: 512 }}
         fullWidth
         placeholder="✏️✏️✏️"

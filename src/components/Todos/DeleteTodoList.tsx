@@ -39,6 +39,7 @@ export default function DeleteTodoList({ id }: { id: TodoList['id'] }) {
         severity="error"
         action={
           <Button
+            disabled={!!todoList?.deleted}
             color="inherit"
             size="small"
             onClick={async () => {
@@ -69,7 +70,7 @@ export default function DeleteTodoList({ id }: { id: TodoList['id'] }) {
           aria-label="delete"
           data-cy={deleteTodoListId}
           onClick={handleClickOpen}
-          disabled={loading}
+          disabled={loading || !!todoList?.deleted}
         >
           <DeleteForeverIcon />
         </IconButton>
@@ -91,6 +92,7 @@ export default function DeleteTodoList({ id }: { id: TodoList['id'] }) {
         <DialogActions>
           <Button onClick={handleClose}>Go back without deletion</Button>
           <Button
+            disabled={!!todoList?.deleted}
             onClick={async () => {
               handleClose();
               const { data } = await deleteTodoListFunction({

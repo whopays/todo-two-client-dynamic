@@ -2,6 +2,7 @@ export interface TodoList {
   id: string;
   title: string;
   todos: Array<Todo>;
+  deleted?: Boolean;
 }
 
 export interface Todo {

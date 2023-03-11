@@ -20,7 +20,7 @@ export default function UndoDeleteTodo({
   setDeletedTextPack: Dispatch<SetStateAction<Array<string>>>;
 }) {
   const [mutateFunction, { error }] = useMutation(ADD_TODO);
-  const { todoListId } = useContext(todoListContext);
+  const { todoListId, todoList } = useContext(todoListContext);
   const [text, setText] = useState<string | undefined>(undefined);
   const [open, setOpen] = useState<boolean>(false);
   useEffect(() => {
@@ -46,6 +46,7 @@ export default function UndoDeleteTodo({
   const action = (
     <>
       <Button
+        disabled={!!todoList?.deleted}
         color="secondary"
         size="small"
         onClick={() => {

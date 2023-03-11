@@ -16,6 +16,7 @@ export default function ShareTodoList() {
     <>
       {!!navigator?.canShare?.(shareData) && (
         <IconButton
+          disabled={!!todoList?.deleted}
           aria-label="share twodo list"
           onClick={async () => {
             try {

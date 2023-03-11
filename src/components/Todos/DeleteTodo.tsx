@@ -1,6 +1,8 @@
 import { CircularProgress, IconButton } from '@mui/material';
 import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import { deleteElementId } from 'src/config';
+import { useContext } from 'react';
+import todoListContext from 'src/context/todoListContext';
 
 export default function DeleteTodo({
   isUnavailable,
@@ -9,6 +11,8 @@ export default function DeleteTodo({
   isUnavailable: boolean;
   deleteTodo: () => void;
 }) {
+  const { todoList } = useContext(todoListContext);
+
   return (
     <IconButton
       aria-label="delete"
@@ -18,7 +22,7 @@ export default function DeleteTodo({
           deleteTodo();
         }
       }}
-      disabled={isUnavailable}
+      disabled={isUnavailable || !!todoList?.deleted}
     >
       {isUnavailable ? (
         <CircularProgress size={24} />

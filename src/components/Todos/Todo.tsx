@@ -20,7 +20,7 @@ export default function Todo({
   addTextToDeletedPack,
 }: ITodo & { addTextToDeletedPack: (text: string) => void }) {
   const [innerValue, setInnerValue] = useState(name);
-  const { todoListId } = useContext(todoListContext);
+  const { todoListId, todoList } = useContext(todoListContext);
   const previousName: ITodo['name'] = usePrevious<ITodo['name']>(name);
 
   useEffect(() => {
@@ -86,7 +86,7 @@ export default function Todo({
             textDecoration: checked ? 'line-through' : 'initial',
           },
         }}
-        disabled={isUnavailable}
+        disabled={isUnavailable || !!todoList?.deleted}
         fullWidth
         placeholder="✏️✏️✏️"
         variant="standard"
@@ -112,14 +112,17 @@ export default function Todo({
                   });
                 }}
                 edge="start"
-                disabled={isUnavailable}
+                disabled={isUnavailable || !!todoList?.deleted}
               >
                 {checked ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
               </IconButton>
             </InputAdornment>
           ),
           endAdornment: (
-            <IconButton>
+            <IconButton
+              aria-label="move todo up or down in order"
+              disabled={isUnavailable || !!todoList?.deleted}
+            >
               <HeightIcon />
             </IconButton>
           ),

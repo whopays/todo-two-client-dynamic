@@ -43,7 +43,7 @@ export default function TodoListTitle() {
   return (
     <TextField
       inputProps={{ 'data-cy': todoListTitleId, maxLength: 512 }}
-      disabled={isEditing}
+      disabled={isEditing || !!todoList?.deleted}
       fullWidth
       placeholder="✏️ Title"
       variant="standard"
