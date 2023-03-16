@@ -15,6 +15,7 @@ import {
 import todoListContext from 'src/context/todoListContext';
 import Draggable from '../Draggable';
 import UndoDeleteTodo from './UndoDeleteTodo';
+import userActivity from 'src/userActivity';
 
 export default function Todos() {
   const { todoList, setTodoList, todoListId, setTodoListId } =
@@ -64,6 +65,7 @@ export default function Todos() {
   useEffect(() => {
     if (todoListId) {
       events(todoListId, setTodoList);
+      userActivity(todoListId);
     }
   }, [setTodoList, todoListId]);
 

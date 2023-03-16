@@ -12,6 +12,7 @@ import todoListContext from '../../context/todoListContext';
 import { temporaryNewId, todoInputElementId } from '../../config';
 import usePrevious from '../../hooks/usePrevious';
 import DeleteTodo from './DeleteTodo';
+import { submitViewEvent } from './submitViewEvent';
 
 export default function Todo({
   name,
@@ -61,6 +62,10 @@ export default function Todo({
   };
 
   const submit = () => {
+    submitViewEvent({ todoListId: todoListId || '', todoId: id });
+
+    if (previousName === innerValue) return;
+
     editFunction({
       variables: {
         todoListId: todoListId,
