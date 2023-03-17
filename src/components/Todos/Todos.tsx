@@ -6,7 +6,7 @@ import NewTodo from './NewTodo';
 import GET_TODOS from '../../apollo/queries/getTodos';
 import { Todo } from '../../types/Todo';
 import POST_TODO_LIST from '../../apollo/mutations/postTodoList';
-import events from '../../events';
+import events, { randomIdForEvents } from '../../events';
 import TodoListTitle from './TodoListTitle';
 import {
   addTodoList,
@@ -15,10 +15,10 @@ import {
 import todoListContext from 'src/context/todoListContext';
 import Draggable from '../Draggable';
 import UndoDeleteTodo from './UndoDeleteTodo';
-import userActivity from 'src/userActivity';
+import userActivity from 'src/viewStream';
 
 export default function Todos() {
-  const { todoList, setTodoList, todoListId, setTodoListId } =
+  const { todoList, setTodoList, todoListId, setTodoListId, setUsers } =
     useContext(todoListContext);
   const [deletedTextPack, setDeletedTextPack] = useState<Array<string>>([]);
   const addTextToDeletedPack = (text: string) =>
@@ -65,9 +65,9 @@ export default function Todos() {
   useEffect(() => {
     if (todoListId) {
       events(todoListId, setTodoList);
-      userActivity(todoListId);
+      userActivity(todoListId, randomIdForEvents, setUsers);
     }
-  }, [setTodoList, todoListId]);
+  }, [setTodoList, setUsers, todoListId]);
 
   if (loading || postTodoListLoading) return <LinearProgress />;
   if (error || postTodoError)

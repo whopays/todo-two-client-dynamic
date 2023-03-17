@@ -7,11 +7,12 @@ import ColorModeSwitcher from '../ColorModeSwitcher/ColorModeSwitcher';
 import PreviousTodoLists from '../PreviousTodoLists/PreviousTodoLists';
 import ShareTodoList from '../ShareTodoList/ShareTodoList';
 import { useState } from 'react';
-import { TodoList } from 'src/types/Todo';
+import { TodoList, User } from 'src/types/Todo';
 import DeleteTodoList from '../Todos/DeleteTodoList';
 
 function App() {
   const [todoList, setTodoList] = useState<TodoList>();
+  const [users, setUsers] = useState<Array<User>>([]);
   const [todoListId, setTodoListId] = useState<string>(
     window.location.pathname.split('/')[1],
   );
@@ -24,6 +25,8 @@ function App() {
           setTodoListId,
           todoList,
           setTodoList,
+          users,
+          setUsers,
         }}
       >
         <Todos />

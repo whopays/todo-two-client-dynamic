@@ -2,6 +2,8 @@ import { Dispatch, SetStateAction } from 'react';
 import { backendUrl } from './config';
 import { TodoList } from './types/Todo';
 
+export const randomIdForEvents = Math.random().toString(36).substring(2);
+
 const events = (
   todoListId: TodoList['id'],
   setTodoList: Dispatch<SetStateAction<TodoList | undefined>>,

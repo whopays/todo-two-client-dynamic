@@ -1,4 +1,5 @@
 import { backendUrl } from 'src/config';
+import { randomIdForEvents } from 'src/events';
 import { Todo, TodoList } from 'src/types/Todo';
 
 export function submitViewEvent({
@@ -16,6 +17,7 @@ export function submitViewEvent({
     body: JSON.stringify({
       todoListId,
       todoId,
+      userId: randomIdForEvents,
     }),
   });
 }

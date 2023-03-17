@@ -13,6 +13,7 @@ import { temporaryNewId, todoInputElementId } from '../../config';
 import usePrevious from '../../hooks/usePrevious';
 import DeleteTodo from './DeleteTodo';
 import { submitViewEvent } from './submitViewEvent';
+import { color } from 'src/colors';
 
 export default function Todo({
   name,
@@ -21,7 +22,10 @@ export default function Todo({
   addTextToDeletedPack,
 }: ITodo & { addTextToDeletedPack: (text: string) => void }) {
   const [innerValue, setInnerValue] = useState(name);
-  const { todoListId, todoList } = useContext(todoListContext);
+  const { todoListId, todoList, users } = useContext(todoListContext);
+  const activeUserId = users?.find(
+    ({ userId, todoId }) => todoId === id,
+  )?.userId;
   const previousName: ITodo['name'] = usePrevious<ITodo['name']>(name);
 
   useEffect(() => {
@@ -89,6 +93,9 @@ export default function Todo({
           maxLength: 512,
           style: {
             textDecoration: checked ? 'line-through' : 'initial',
+            borderBottom: activeUserId
+              ? `1px solid #${color(activeUserId)}`
+              : undefined,
           },
         }}
         disabled={isUnavailable || !!todoList?.deleted}

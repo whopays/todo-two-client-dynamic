@@ -14,3 +14,8 @@ export interface Todo {
 export interface TodoListResponse {
   todoList: TodoList;
 }
+
+export interface User {
+  userId: string;
+  todoId: Todo['id'];
+}
