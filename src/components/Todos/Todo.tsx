@@ -66,7 +66,7 @@ export default function Todo({
   };
 
   const submit = () => {
-    submitViewEvent({ todoListId: todoListId || '', todoId: id });
+    submitViewEvent({ todoListId: todoListId || '', todoId: undefined });
 
     if (previousName === innerValue) return;
 
@@ -104,6 +104,9 @@ export default function Todo({
         variant="standard"
         onChange={(e) => {
           setInnerValue(e.target.value);
+        }}
+        onFocus={() => {
+          submitViewEvent({ todoListId: todoListId || '', todoId: id });
         }}
         onBlur={submit}
         onKeyPress={(event) => {

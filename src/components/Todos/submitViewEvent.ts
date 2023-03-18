@@ -7,7 +7,7 @@ export function submitViewEvent({
   todoId,
 }: {
   todoListId: TodoList['id'];
-  todoId: Todo['id'];
+  todoId: Todo['id'] | undefined;
 }) {
   fetch(`${backendUrl}postEvent`, {
     method: 'POST',
