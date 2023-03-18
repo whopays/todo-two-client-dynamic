@@ -49,8 +49,8 @@ export default function Todos() {
     if (!postTodoListLoading) {
       postTodoMutateFunction({
         update: (proxy, { data: { postTodoList } }) => {
-          setTodoListId(postTodoList.id);
-          window.history.pushState(null, '', `/${postTodoList.id}`);
+          setTodoListId(postTodoList?.id);
+          window.history.pushState(null, '', `/${postTodoList?.id}`);
         },
       });
     }
@@ -148,11 +148,11 @@ export default function Todos() {
               component: (
                 <TodoComponent
                   {...todo}
-                  key={todo.id}
+                  key={todo?.id}
                   addTextToDeletedPack={addTextToDeletedPack}
                 />
               ),
-              id: todo.id,
+              id: todo?.id,
             };
           }) || []
         }
