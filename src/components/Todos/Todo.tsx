@@ -94,7 +94,7 @@ export default function Todo({
           style: {
             textDecoration: checked ? 'line-through' : 'initial',
             borderBottom: activeUserId
-              ? `1px solid #${color(activeUserId)}`
+              ? `3px solid #${color(activeUserId)}`
               : undefined,
           },
         }}
