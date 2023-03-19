@@ -34,8 +34,8 @@ export default function Todos() {
   useEffect(() => {
     if (data?.todoList) {
       addTodoList(data?.todoList);
+      setTodoList(data?.todoList);
     }
-    setTodoList(data?.todoList);
   }, [setTodoList, data]);
 
   const [
@@ -49,6 +49,7 @@ export default function Todos() {
     if (!postTodoListLoading) {
       postTodoMutateFunction({
         update: (proxy, { data: { postTodoList } }) => {
+          console.log('id', postTodoList?.id);
           setTodoListId(postTodoList?.id);
           window.history.pushState(null, '', `/${postTodoList?.id}`);
         },
@@ -60,6 +61,7 @@ export default function Todos() {
     postTodoMutateFunction,
     postTodoListLoading,
     setTodoListId,
+    data,
   ]);
 
   useEffect(() => {
