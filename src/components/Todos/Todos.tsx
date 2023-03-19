@@ -49,7 +49,6 @@ export default function Todos() {
     if (!postTodoListLoading) {
       postTodoMutateFunction({
         update: (proxy, { data: { postTodoList } }) => {
-          console.log('id', postTodoList?.id);
           setTodoListId(postTodoList?.id);
           window.history.pushState(null, '', `/${postTodoList?.id}`);
         },

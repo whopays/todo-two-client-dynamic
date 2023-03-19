@@ -1,5 +1,6 @@
 import {
   insertNewElementId,
+  loadingTodoId,
   previousTodoListDeleteItemId,
   previousTodoListDropdownItemId,
   previousTodoListsId,
@@ -24,6 +25,7 @@ describe('Previous Todo Lists', () => {
       .should('not.be.disabled')
       .type(`${testStringFirst}\n`);
     cy.dataCy(todoInputElementId).eq(0).should('have.value', testStringFirst);
+    cy.dataCy(loadingTodoId).should('not.exist');
 
     cy.visit('/');
     const newLocation = cy.location('pathname');
@@ -34,6 +36,7 @@ describe('Previous Todo Lists', () => {
       .should('not.be.disabled')
       .type(`${testStringSecond}\n`);
     cy.dataCy(todoInputElementId).eq(0).should('have.value', testStringSecond);
+    cy.dataCy(loadingTodoId).should('not.exist');
 
     cy.dataCy(previousTodoListsId).click();
     cy.dataCy(previousTodoListDropdownItemId).click();

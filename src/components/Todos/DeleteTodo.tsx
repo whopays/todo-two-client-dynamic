@@ -1,6 +1,6 @@
 import { CircularProgress, IconButton } from '@mui/material';
 import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
-import { deleteElementId } from 'src/config';
+import { deleteElementId, loadingTodoId } from 'src/config';
 import { useContext } from 'react';
 import todoListContext from 'src/context/todoListContext';
 
@@ -25,7 +25,7 @@ export default function DeleteTodo({
       disabled={isUnavailable || !!todoList?.deleted}
     >
       {isUnavailable ? (
-        <CircularProgress size={24} />
+        <CircularProgress size={24} data-cy={loadingTodoId} />
       ) : (
         <DeleteForeverTwoToneIcon />
       )}

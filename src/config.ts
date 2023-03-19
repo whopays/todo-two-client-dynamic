@@ -8,6 +8,7 @@ export const previousTodoListsId = 'previous-todo-list';
 export const previousTodoListDropdownItemId =
   'previous-todo-list-dropdown-item';
 export const previousTodoListDeleteItemId = 'previous-todo-list-delete-item';
+export const loadingTodoId = 'loading-todo';
 
 export const isDev =
   !process.env.NODE_ENV || process.env.NODE_ENV === 'development';

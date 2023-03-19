@@ -4,6 +4,7 @@ import {
   insertNewElementId,
   todoInputElementId,
   confirmTodoListDeleteId,
+  loadingTodoId,
 } from '../../src/config';
 
 const idRegexWithHash =
@@ -24,8 +25,10 @@ describe('Smoke', () => {
       .focus() // https://github.com/cypress-io/cypress/issues/5830#issuecomment-1255597764
       .should('not.be.disabled')
       .type(`${test1}\n`);
+    cy.dataCy(loadingTodoId).should('not.exist');
     cy.dataCy(todoInputElementId).eq(0).should('have.value', test1);
     cy.dataCy(insertNewElementId).type(`${test2}\n`);
+    cy.dataCy(loadingTodoId).should('not.exist');
     cy.dataCy(todoInputElementId).eq(1).should('have.value', test2);
     cy.dataCy(deleteElementId).eq(0).click();
     cy.dataCy(todoInputElementId).its('length').should('eq', 1);
@@ -38,6 +41,7 @@ describe('Smoke', () => {
     cy.reload();
     cy.dataCy(todoInputElementId).type(`${test2edited}\n`);
     cy.dataCy(todoInputElementId).should('be.disabled');
+    cy.dataCy(loadingTodoId).should('not.exist');
     cy.dataCy(todoInputElementId).should('not.be.disabled');
 
     cy.reload();
