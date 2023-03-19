@@ -48,7 +48,7 @@ export default function DeleteTodoList({ id }: { id: TodoList['id'] }) {
                   todoListId: id,
                 },
               });
-              // @ts-ignore
+
               if (data?.deleteTodoList || data?.deleteTodoList === null) {
                 window.history.pushState(null, '', '/');
                 window.location.reload();
