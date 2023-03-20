@@ -15,6 +15,10 @@ const viewStream = (
 
     setUsers(users);
   };
+
+  window.addEventListener('beforeunload', () => {
+    events.close();
+  });
 };
 
 export default viewStream;

@@ -19,6 +19,10 @@ const events = (
       deleted,
     });
   };
+
+  window.addEventListener('beforeunload', () => {
+    events.close();
+  });
 };
 
 export default events;
