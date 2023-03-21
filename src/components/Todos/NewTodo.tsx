@@ -28,7 +28,7 @@ export default function NewTodo() {
         disabled={!!todoList?.deleted}
         inputProps={{ 'data-cy': insertNewElementId, maxLength: 512 }}
         fullWidth
-        placeholder="✏️✏️✏️"
+        placeholder="👉🏻📝✅ (insert new to do)"
         variant="standard"
         onChange={(e) => {
           setValue(e.target.value);

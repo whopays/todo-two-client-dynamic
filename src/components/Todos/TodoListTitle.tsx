@@ -45,7 +45,7 @@ export default function TodoListTitle() {
       inputProps={{ 'data-cy': todoListTitleId, maxLength: 512 }}
       disabled={isEditing || !!todoList?.deleted}
       fullWidth
-      placeholder="✏️ Title"
+      placeholder="👉🏻✏️ (title)"
       variant="standard"
       value={innerValue}
       onChange={(e) => {
