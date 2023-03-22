@@ -26,9 +26,9 @@ export default function NewTodo() {
     <>
       <TextField
         disabled={!!todoList?.deleted}
-        inputProps={{ 'data-cy': insertNewElementId, maxLength: 512 }}
+        inputProps={{ 'data-cy': insertNewElementId, maxLength: 1024 }}
         fullWidth
-        placeholder="👉🏻📝✅ (insert new to do)"
+        placeholder="👉🏻📝✅ (type new to do here)"
         variant="standard"
         onChange={(e) => {
           setValue(e.target.value);
