@@ -58,7 +58,7 @@ export default function UndoDeleteTodo({
       </Button>
       <IconButton
         size="small"
-        aria-label="close"
+        aria-label="close restore panel"
         color="inherit"
         onClick={handleClose}
       >

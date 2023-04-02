@@ -11,7 +11,12 @@ function ColorModeSwitcher() {
   const { toggleColorMode } = useContext(colorModeContext);
 
   return (
-    <IconButton sx={{ ml: 1 }} onClick={toggleColorMode} color="inherit">
+    <IconButton
+      sx={{ ml: 1 }}
+      onClick={toggleColorMode}
+      color="inherit"
+      aria-label="switch color palette"
+    >
       {theme.palette.mode === 'dark' ? (
         <Brightness7Icon />
       ) : (

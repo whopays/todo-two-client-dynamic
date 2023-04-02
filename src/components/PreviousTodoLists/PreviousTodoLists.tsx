@@ -53,6 +53,7 @@ export default function PreviousTodoLists() {
       <IconButton
         ref={anchorRef}
         id="composition-button"
+        aria-label="toggle history popper"
         aria-controls={open ? 'composition-menu' : undefined}
         aria-expanded={open ? 'true' : undefined}
         aria-haspopup="true"
