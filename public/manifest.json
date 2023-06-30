@@ -13,11 +13,6 @@
       "sizes": "32x32"
     },
     {
-      "src": "favicon-64x64.png",
-      "type": "image/png",
-      "sizes": "64x64"
-    },
-    {
       "src": "android-chrome-192x192.png",
       "type": "image/png",
       "sizes": "192x192"
