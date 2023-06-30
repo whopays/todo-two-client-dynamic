@@ -25,6 +25,7 @@ export default function NewTodo() {
   return (
     <>
       <TextField
+        multiline
         disabled={!!todoList?.deleted}
         inputProps={{ 'data-cy': insertNewElementId, maxLength: 1024 }}
         fullWidth

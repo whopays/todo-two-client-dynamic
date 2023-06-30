@@ -23,9 +23,7 @@ export default function Todo({
 }: ITodo & { addTextToDeletedPack: (text: string) => void }) {
   const [innerValue, setInnerValue] = useState(name);
   const { todoListId, todoList, users } = useContext(todoListContext);
-  const activeUserId = users?.find(
-    ({ userId, todoId }) => todoId === id,
-  )?.userId;
+  const activeUserId = users?.find(({ todoId }) => todoId === id)?.userId;
   const previousName: ITodo['name'] = usePrevious<ITodo['name']>(name);
 
   useEffect(() => {
@@ -88,6 +86,7 @@ export default function Todo({
   return (
     <Box display="flex" width="100%">
       <TextField
+        multiline
         inputProps={{
           'data-cy': todoInputElementId,
           maxLength: 512,
