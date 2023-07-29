@@ -25,6 +25,7 @@
   ],
   "start_url": ".",
   "display": "standalone",
+  "scope": "https://twodo.it/",
   "theme_color": "#AFA",
   "background_color": "#00F"
 }

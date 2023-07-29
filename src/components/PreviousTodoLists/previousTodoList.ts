@@ -8,7 +8,7 @@ interface TodoListFromLocalStorage {
 }
 
 export const getPreviousTodoLists = (): Array<TodoListFromLocalStorage> => {
-  return JSON.parse(localStorage.getItem(key) || '[]');
+  return JSON.parse(localStorage.getItem(key) || '[]').reverse();
 };
 
 export const removeTodoList = (todoListId: TodoList['id']) => {
