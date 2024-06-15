@@ -1,6 +1,6 @@
 import { CssBaseline, useMediaQuery, PaletteMode } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, type JSX } from 'react';
 import colorModeContext from '../../context/colorModeContext';
 
 function Theme({ children }: { children: JSX.Element | undefined }) {

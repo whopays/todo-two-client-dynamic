@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import { useContext } from 'react';
+import { useContext, type JSX } from 'react';
 import {
   DragDropContext,
   Droppable,
@@ -135,7 +135,7 @@ const Draggable = ({
   return (
     <>
       <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="droppable">
+        <Droppable droppableId="droppable" isDropDisabled={false} isCombineEnabled={false}>
           {(provided, snapshot) => (
             <div
               {...provided.droppableProps}

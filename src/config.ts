@@ -12,7 +12,7 @@ export const loadingTodoId = 'loading-todo';
 
 export const isDev =
   !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
-export const backendUrl = isDev
+export const backendUrl = !isDev
   ? 'http://localhost:4000/'
   : 'https://todo-two-server.onrender.com/';
 
