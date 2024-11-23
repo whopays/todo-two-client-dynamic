@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.wtwodo_18035770",
+      "sha256_cert_fingerprints": [
+        "A0:A7:E2:72:BB:F9:64:82:65:92:84:E2:E2:97:D6:AC:48:D9:6F:10:47:14:63:C5:18:AD:DD:88:56:63:AD:01"
+      ]
+    }
+  }
+]
