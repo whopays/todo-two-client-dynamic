@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "it.twodo.twa",
+      "sha256_cert_fingerprints": [
+        "46:66:98:2E:68:E6:59:D5:DF:9D:D5:7C:CC:CB:C6:94:3E:56:40:9D:E4:A6:D8:8C:0E:7F:B8:38:CA:53:00:48"
+      ]
+    }
+  }
+]
