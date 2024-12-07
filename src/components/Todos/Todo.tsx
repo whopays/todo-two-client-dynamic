@@ -80,6 +80,8 @@ export default function Todo({
     });
   };
 
+  if (!id) return null; // an error happened once where the entire todo was null.
+
   const isUnavailable =
     id.startsWith(temporaryNewId) || isDeleting || isEditing;
 
