@@ -86,8 +86,9 @@ export default function PreviousTodoLists() {
                     aria-labelledby="composition-button"
                     onKeyDown={handleListKeyDown}
                   >
-                    {previousTodoLists.map(
-                      ({ id, title }: { id: any; title: string }) => {
+                    {previousTodoLists
+                      .slice(0, 20)
+                      .map(({ id, title }: { id: any; title: string }) => {
                         return (
                           <MenuItem
                             key={id}
@@ -123,8 +124,7 @@ export default function PreviousTodoLists() {
                             </Box>
                           </MenuItem>
                         );
-                      },
-                    )}
+                      })}
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
